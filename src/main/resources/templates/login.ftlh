@@ -3,6 +3,11 @@
 
 <@c.page>
     Login page
+    <#if Session?? && Session.SPRING_SECURITY_LAST_EXCEPTION??>
+        <div>
+            ${Session.SPRING_SECURITY_LAST_EXCEPTION.message}
+        </div>
+    </#if>
     <@l.login "/login" />
     <a href="/registration">Add new user</a>
 </@c.page>
