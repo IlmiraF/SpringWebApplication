@@ -27,7 +27,7 @@
             <b>${message.id}</b>
             <span>${message.text}</span>
             <i>${message.tag}</i>
-            <strong>${message.authorName}</strong>
+            <a href="/profile/${message.authorName}">${message.authorName}</a>
         </div>
     <#else>
         No message

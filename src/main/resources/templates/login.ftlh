@@ -8,6 +8,5 @@
             ${Session.SPRING_SECURITY_LAST_EXCEPTION.message}
         </div>
     </#if>
-    <@l.login "/login" />
-    <a href="/registration">Add new user</a>
+    <@l.login "/login" false/>
 </@c.page>

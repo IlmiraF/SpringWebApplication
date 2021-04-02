@@ -5,8 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.domain.Role;
 import ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.domain.User;
 import ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.repos.UserRepo;
+import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -15,12 +17,19 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+        return userRepo.findByUsername(username);
+    }
 
-        if(user == null) {
-            throw new UsernameNotFoundException("User not found");
+    public boolean addUser(User user) {
+        User userFromDb = userRepo.findByUsername(user.getUsername());
+
+        if (userFromDb != null) {
+            return false;
         }
 
-        return user;
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.USER));
+        userRepo.save(user);
+        return true;
     }
 }

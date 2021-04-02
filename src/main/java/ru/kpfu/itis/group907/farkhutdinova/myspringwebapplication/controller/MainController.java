@@ -4,13 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.domain.Message;
 import ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.domain.User;
 import ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.repos.MessageRepo;
-
 import java.util.Map;
 
 @Controller
