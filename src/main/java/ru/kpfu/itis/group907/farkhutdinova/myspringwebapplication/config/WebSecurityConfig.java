@@ -1,6 +1,7 @@
 package ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.config;
 
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe().key("uniqueAndSecret").rememberMeParameter("remember-me")
                 .and()
-                .logout().deleteCookies("JSESSIONID")
-                .permitAll();
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 
     @Override

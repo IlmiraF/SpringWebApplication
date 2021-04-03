@@ -14,6 +14,9 @@
                 <img src="/img/${usr.filename}">
             </#if>
         </div>
+        <#if logged == usr.username>
+        <a href="/profile/${usr.username}/edit_page">Edit</a>
+        </#if>
     </div>
 </body>
 </html>
