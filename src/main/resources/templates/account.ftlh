@@ -9,9 +9,12 @@
         </form>
         </#if>
         <b>${usr.username}</b>
+        <div>${usr.email}</div>
         <div>
             <#if usr.filename??>
-                <img src="/img/${usr.filename}">
+                <img src="/img/${usr.filename}" width="150" height="150">
+            <#else>
+                <img src="/img/unnamed.jpg" width="150" height="150">
             </#if>
         </div>
         <#if logged == usr.username>

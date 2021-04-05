@@ -46,12 +46,14 @@ public class ProfileController {
                     uploadDir.mkdir();
                 }
 
-                String uuidFile = UUID.randomUUID().toString();
-                String resultFilename = uuidFile + "." + file.getOriginalFilename();
+                if(file.getSize() != 0) {
+                    String uuidFile = UUID.randomUUID().toString();
+                    String resultFilename = uuidFile + "." + file.getOriginalFilename();
 
-                file.transferTo(new File(uploadPath + "/" + resultFilename));
+                    file.transferTo(new File(uploadPath + "/" + resultFilename));
 
-                user.setFilename(resultFilename);
+                    user.setFilename(resultFilename);
+                }
             }
 
             userRepo.save(user);
