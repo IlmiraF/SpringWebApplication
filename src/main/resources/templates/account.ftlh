@@ -17,6 +17,9 @@
         <#if logged == usr.username>
         <a href="/profile/${usr.username}/edit_page">Edit</a>
         </#if>
+        <#if logged == usr.username>
+            <a href="/profile/${usr.username}/delete">Delete</a>
+        </#if>
     </div>
 </body>
 </html>
