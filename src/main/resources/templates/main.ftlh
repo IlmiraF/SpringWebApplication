@@ -34,6 +34,13 @@
                     <img src="/img/${message.filename}" width="150" height="150">
                 </#if>
             </div>
+            <div>
+                <#if logged??>
+                    <#if logged.username == message.authorName>
+                        <a href="/edit_message/${message.id}">Edit</a>
+                    </#if>
+                </#if>
+            </div>
         </div>
     <#else>
         No message

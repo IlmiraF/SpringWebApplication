@@ -2,7 +2,7 @@ package ru.kpfu.itis.group907.farkhutdinova.myspringwebapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +25,12 @@ public class MainController {
     private String uploadPath;
 
     @GetMapping("/")
-    public String greeting(Map<String, Object> model) {
+    public String greeting(Model model) {
         return "greeting";
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
+    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model, @AuthenticationPrincipal User currentUser) {
         Iterable<Message> messages = messageRepo.findAll();
 
         if(filter != null && !filter.isEmpty()) {
@@ -41,12 +41,18 @@ public class MainController {
 
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
+        if(currentUser != null) {
+            model.addAttribute("logged", currentUser);
+        }
         return "main";
     }
 
     @PostMapping("/main")
-    public String add(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag, Map<String, Object> model, @RequestParam("file") MultipartFile file) throws IOException {
+    public String add(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag, Model model, @RequestParam("file") MultipartFile file) throws IOException {
         Message message = new Message(text, tag, user);
+        if(user != null) {
+            model.addAttribute("logged", user);
+        }
 
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
@@ -67,7 +73,7 @@ public class MainController {
 
         Iterable<Message> messages = messageRepo.findAll();
 
-        model.put("messages", messages);
+        model.addAttribute("messages", messages);
 
         return "main";
     }
